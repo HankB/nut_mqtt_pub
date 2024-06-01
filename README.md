@@ -1,6 +1,6 @@
-# Network UPS Tool MQTT Publisher
+# Network UPS Tool upsc parser
 
-Collect stats from Network UPS Tool (NUT) CLI program `upsc`and publish to an MQTT broker. Typical output looks like
+Parse the output from Network UPS Tool (NUT) CLI program `upsc` and write to standard output using JSON format. Typical `upsc` output looks like:
 
 ```text
 hbarta@oak:~$ upsc EC850LCD@pilog3b
@@ -65,3 +65,5 @@ Code something that can parse the output listed above and write desired values i
 * `nut2mqtt` <https://github.com/rburkholder/nut2mqtt>
 * `nut-to-mqtt` <https://github.com/jnovack/nut-to-mqtt>
 *  `ups-mqtt` <https://github.com/dniklewicz/ups-mqtt>
+
+Initial plan is to code in Rust.
