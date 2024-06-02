@@ -64,7 +64,7 @@ Code something that can parse the output listed above and write desired values i
 
 * `nut2mqtt` <https://github.com/rburkholder/nut2mqtt>
 * `nut-to-mqtt` <https://github.com/jnovack/nut-to-mqtt>
-*  `ups-mqtt` <https://github.com/dniklewicz/ups-mqtt>
+* `ups-mqtt` <https://github.com/dniklewicz/ups-mqtt>
 
 Initial plan is to code in Rust.
 
@@ -121,7 +121,5 @@ ups.test.result: No test initiated
 ups.timer.shutdown: -60
 ups.timer.start: 0
 ups.vendorid: 0764
-EOF 
+EOF
 ```
-
-*Note: For reasons I have not yet figured out, I can copy/paste the entire test to the shell but have to type the final `EOF` to terminate the here document.
