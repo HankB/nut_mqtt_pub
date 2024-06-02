@@ -1,8 +1,12 @@
 use std::io;
 
+static COMPARE: &str = "battery.charge:";
+
 // process each line
 fn process_line(line: &String) {
-    println!("{}", line);
+    if line.contains(COMPARE) {
+        println!("matched:{}", line);
+    }
 }
 
 fn main() -> io::Result<()> {
