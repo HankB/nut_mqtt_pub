@@ -1,6 +1,6 @@
+//use std::collections::HashMap;
 use std::io;
 
-//static COMPARE: &str = "battery.charge:";
 const TOKENS: &'static [&'static str] = &[
     "battery.charge:",
     "battery.runtime:",
@@ -16,11 +16,13 @@ const TOKENS: &'static [&'static str] = &[
     "ups.timer.start:",
 ];
 
+//static mut MATCHED_VALS: HashMap<String, String> = HashMap::new();
+
 // process each line
 fn process_line(line: &String) {
     for token in TOKENS {
         if line.contains(token) {
-            let token_value = &line[token.len()+1..line.len()-1]; // extract value
+            let token_value = &line[token.len() + 1..line.len() - 1]; // extract value
             println!("matched:{}, got \"{}\"", line, token_value);
         }
     }
