@@ -1,11 +1,27 @@
 use std::io;
 
-static COMPARE: &str = "battery.charge:";
+//static COMPARE: &str = "battery.charge:";
+const TOKENS: &'static [&'static str] = &[
+    "battery.charge:",
+    "battery.runtime:",
+    "battery.voltage:",
+    "device.model:",
+    "driver.version:",
+    "driver.version.data:",
+    "driver.version.internal:",
+    "input.voltage:",
+    "output.voltage:",
+    "ups.test.result:",
+    "ups.timer.shutdown:",
+    "ups.timer.start:",
+];
 
 // process each line
 fn process_line(line: &String) {
-    if line.contains(COMPARE) {
-        println!("matched:{}", line);
+    for token in TOKENS {
+        if line.contains(token) {
+            println!("matched:{}", line);
+        }
     }
 }
 
