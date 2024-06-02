@@ -20,7 +20,8 @@ const TOKENS: &'static [&'static str] = &[
 fn process_line(line: &String) {
     for token in TOKENS {
         if line.contains(token) {
-            println!("matched:{}", line);
+            let token_value = &line[token.len()+1..line.len()-1]; // extract value
+            println!("matched:{}, got \"{}\"", line, token_value);
         }
     }
 }
