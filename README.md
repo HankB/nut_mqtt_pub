@@ -57,8 +57,8 @@ hbarta@oak:~$
 
 Code something that can parse the output listed above and write desired values in JSON format, including ancillary data such as a timestamp (`time_t`) to standard out. The actual publishing will be delegated to the utility `mosquitto_pub`.
 
-* Selected fields will be hard coded initially. Eventually they could be provided by command line argument.
-* Input will be read from standard in. (IOW, this program will operate asd a filter.)
+* Selected fields will be hard coded initially. Eventually they could be provided by command line argument or configuratoin file.
+* Input will be read from standard in. (IOW, this program will operate as a filter.)
 
 ## Similar projects
 
@@ -67,6 +67,24 @@ Code something that can parse the output listed above and write desired values i
 * `ups-mqtt` <https://github.com/dniklewicz/ups-mqtt>
 
 Initial plan is to code in Rust.
+
+## Status
+
+Initial version complete.
+
+## Usage
+
+The intended usage for this utility is to execute with input coming from `upsc` piped into this program and output being piped to `mosquitto_pub` on Linux. It should work for either ARM and X86 hosts where these utilities are available. On Debian (including RpiOS) the following packages are required. (The `nut-client` may require configuration as well, but in my case it is run on the host that runs the NUT server so that configuration covers that need.)
+
+```text
+apt install mosquitto-clients nut-client
+```
+
+The following crontab entry (in a user, not root) crontab publishes the fields of interest every minute.
+
+```text
+* * * * * /bin/upsc EC850LCD@localhost | /home/hbarta/bin/nut_upsc_parse | /bin/mosquitto_pub -h mqtt -t HA/"$(/bin/hostname)"/lab/power/EC850LCD@"$(/bin/hostname)" -l
+```
 
 ## Test
 
