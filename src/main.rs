@@ -1,6 +1,8 @@
 use std::collections::HashMap;
 use std::io;
+use std::time::{SystemTime, UNIX_EPOCH};
 
+// fields from the output of 'upsc' that we want.
 const TOKENS: &'static [&'static str] = &[
     "battery.charge:",
     "battery.runtime:",
@@ -16,25 +18,32 @@ const TOKENS: &'static [&'static str] = &[
     "ups.timer.start:",
 ];
 
-//static mut MATCHED_VALS: HashMap<String, String> = HashMap::new();
-
 // process each line
 fn process_line(line: &String) -> (&str, &str) {
     for token in TOKENS {
         if line.contains(token) {
             let token_value = &line[token.len() + 1..line.len() - 1]; // extract value
-            //println!("matched:{}, got \"{}\"", line, token_value);
-            return (*token, token_value)
+            return (*token, token_value);
         }
     }
-    ("","")
+
+    ("", "") // return zero length strings for no match
 }
 
 fn main() -> io::Result<()> {
     let mut buffer = String::new();
     let mut matched_vals: HashMap<String, String> = HashMap::new();
+    let time_t;
+
+    // add a timestamp to the HashMap
+    match SystemTime::now().duration_since(UNIX_EPOCH) {
+        Ok(n) => time_t = n.as_secs(),
+        Err(_) => panic!("SystemTime before UNIX EPOCH!"),
+    }
+    matched_vals.insert("t".to_string(), time_t.to_string());
+
+    // loop over input lines
     loop {
-        // read input a line at a time
         buffer.clear();
         let r = io::stdin().read_line(&mut buffer)?;
         let (tag, val) = process_line(&buffer);
@@ -45,6 +54,7 @@ fn main() -> io::Result<()> {
             break;
         }
     }
-    println!("{:?}", matched_vals);
+
+    println!("{:?}", matched_vals); // print results, conveniently as JSON
     Ok(())
 }
