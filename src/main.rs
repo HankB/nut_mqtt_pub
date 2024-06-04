@@ -48,6 +48,8 @@ fn main() -> io::Result<()> {
         let r = io::stdin().read_line(&mut buffer)?;
         let (tag, val) = process_line(&buffer);
         if tag.len() > 0 {
+            let tag = tag.replace(".", "_"); //substitute '.'
+            let tag = tag.replace(":", ""); // remove trailing ':'
             matched_vals.insert(tag.to_string(), val.to_string());
         }
         if r == 0 {
