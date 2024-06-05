@@ -16,6 +16,8 @@ const TOKENS: &'static [&'static str] = &[
     "ups.test.result:",
     "ups.timer.shutdown:",
     "ups.timer.start:",
+    "ups.load:",
+    "ups.realpower.nominal:",
 ];
 
 // process each line
